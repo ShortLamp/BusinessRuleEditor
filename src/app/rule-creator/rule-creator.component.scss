@@ -1,0 +1,17 @@
+.mat-form-field {
+  width: 30%;
+}
+
+.value-field {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0;
+}
+
+.value-field .mat-form-field-wrapper {
+  flex: 1;
+}
+
+.value-field .mat-form-field-infix {
+  padding: 0;
+}

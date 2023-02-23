@@ -1,0 +1,35 @@
+<ng-container>
+    <mat-form-field>
+        <mat-label>Controls</mat-label>
+        <mat-select [(ngModel)]="selected" name="control">
+            <mat-option *ngFor="let control of formControls" [value]="control">
+                {{control.label}}
+            </mat-option>
+        </mat-select>
+
+    </mat-form-field>
+
+
+    <mat-form-field>
+        <mat-label>Operator</mat-label>
+        <mat-select [(ngModel)]="operator">
+            <mat-option *ngFor="let operator of operatorDict.keys()" [value]="operator">
+                {{operator}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label >Value</mat-label>
+        <input [(ngModel)]="value" *ngIf="!selected.options" matInput>
+        <mat-select [(ngModel)]="value" *ngIf="selected.options">
+            <mat-option *ngFor="let option of selected.options" [value]="option.Description">
+                {{option.Description}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button>
+        <mat-icon (click)="saveRuleLeaf()">done</mat-icon>
+
+    </button>
+</ng-container>

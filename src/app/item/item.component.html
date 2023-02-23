@@ -1,0 +1,51 @@
+<mat-card
+  cdkDrag
+  cdkDropList
+  class="test"
+  [cdkDropListData]="rule.Value"
+  dragAndDropManager
+  [id]="rule.id"
+  (cdkDropListDropped)="onDragDrop$.next($event)"
+  [ngClass]="{
+    invert: invert
+  }">
+
+    <app-rule-creator [rule]="this.rule" *ngIf="isEmptyRuleLeaf(this.rule)"></app-rule-creator>
+    <mat-card-header *ngIf="!isEmptyRuleLeaf(this.rule)" class="header">{{  convertToString(rule) }}
+
+        <button *ngIf="!isRuleLeaf(this.rule)" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>add</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="addNewNode(1)">
+                <span>And</span>
+            </button>
+            <button mat-menu-item (click)="addNewNode(2)">
+                <span>Or</span>
+            </button>
+            <button mat-menu-item (click)="addNewItem()">
+                <span>Eval</span>
+            </button>
+        </mat-menu>
+        <button (click)="removeNode()"  mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-card-header>
+
+
+
+    <ng-container *ngIf="!isRuleLeaf(rule)">
+
+        <mat-card-content *ngFor="let item of rule.Value">
+            <ng-container class="rTableRow">
+                <mat-icon>drag_indicator</mat-icon>
+                <app-item
+                        [rule]="item"
+                        [invert]="!invert"
+                        [onDragDrop]="onDragDrop$"
+                ></app-item>
+
+            </ng-container>
+        </mat-card-content>
+    </ng-container>
+</mat-card>
